@@ -100,3 +100,25 @@ SELECT users.first_name AS post_author_first_name, users.last_name AS post_autho
   INNER JOIN comments ON posts.id = comments.post_id
   WHERE (lower(comments.body) LIKE '%ssl%' OR lower(comments.body) LIKE '%firewall%')
   AND (lower(posts.content) LIKE '%nemo%');
+
+-- Additional Queries
+-- Find the post id, post title, and user id of all posts where the post author commented
+-- on his/her own post. ( should have 2 results )
+SELECT posts.id as post_id, posts.title, users.id as user_id, posts.user_id, comments.user_id
+  FROM posts
+  INNER JOIN comments ON posts.id = comments.post_id
+  INNER JOIN users ON posts.user_id = users.id
+  WHERE posts.user_id = comments.user_id;
+
+-- Count how many comments have been written on posts that have been created after
+-- July 14, 2015 ( should have one result, the value of the count should be 25)
+SELECT COUNT(*)
+  FROM comments
+  INNER JOIN posts ON comments.post_id = posts.id
+  WHERE posts.created_at > '2015-07-14';
+
+-- Find all users who comment about 'programming' ( should have 337 results)
+SELECT users.username, users.first_name, users.last_name
+  FROM users
+  INNER JOIN comments ON users.id = comments.user_id
+  WHERE comments.body LIKE '%programming%';
