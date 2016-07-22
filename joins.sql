@@ -69,3 +69,11 @@ SELECT posts.title AS post_title, posts.url AS post_url, comments.body AS commen
   INNER JOIN posts ON comments.post_id = posts.id
   WHERE comments.body LIKE '%USB%';
 
+-- Create a query to get the post title (aliased as post_title), first name of the author of
+-- the post, last name of the author of the post, and comment body (aliased to comment_body),
+-- where the comment body contains the word 'matrix' ( should have 855 results )
+SELECT posts.title AS post_title, users.first_name, users.last_name, comments.body AS comment_body
+  FROM posts
+  INNER JOIN users ON posts.user_id = users.id
+  INNER JOIN comments ON posts.id = comments.post_id
+  WHERE comments.body LIKE '%matrix%';
