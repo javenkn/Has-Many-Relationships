@@ -77,3 +77,13 @@ SELECT posts.title AS post_title, users.first_name, users.last_name, comments.bo
   INNER JOIN users ON posts.user_id = users.id
   INNER JOIN comments ON posts.id = comments.post_id
   WHERE comments.body LIKE '%matrix%';
+
+-- Create a query to get the first name of the author of the comment, last name of the author of
+-- the comment, and comment body (aliased to comment_body), where the comment body contains
+-- the word 'SSL' and the post content contains the word 'dolorum' ( should have 102 results )
+SELECT users.first_name, users.last_name, comments.body AS comment_body
+  FROM comments
+  INNER JOIN users ON comments.user_id = users.id
+  INNER JOIN posts ON comments.post_id = posts.id
+  WHERE comments.body LIKE '%SSL%'
+  AND posts.content LIKE '%dolorum%';
