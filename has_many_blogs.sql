@@ -40,8 +40,8 @@ CREATE TABLE comments (
   body character varying(510) NULL DEFAULT NULL,
   created_at timestamp with time zone NOT NULL DEFAULT now(),
   updated_at timestamp with time zone NOT NULL DEFAULT now(),
-  user_id INTEGER REFERENCES users(id),
-  post_id INTEGER REFERENCES posts(id)
+  post_id INTEGER REFERENCES posts(id),
+  user_id INTEGER REFERENCES users(id)
 );
 
 CREATE INDEX index_for_users
